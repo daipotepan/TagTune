@@ -1,0 +1,443 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
+/* ==========================
+   リセット & 基本設定
+========================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background-color: #f7f7f9;
+  color: #333;
+  min-height: 100%;
+}
+
+/* ==========================
+   ヘッダー
+========================== */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: #111;
+  height: 64px; /* ← 安定値 */
+}
+
+/* ロゴリンク */
+.header a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* ロゴ画像 */
+.header .logo {
+  height: 40px;      /* ← ここだけ触ればサイズ調整できる */
+  width: auto;
+  display: block;
+}
+
+/* ナビゲーション */
+.header-nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-item {
+  color: #fff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.nav-item:hover {
+  opacity: 0.8;
+}
+
+.logout {
+  color: #f87171;
+}
+
+/* ==========================
+   メインコンテンツ
+========================== */
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 32px 24px; /* ← 左右余白はここだけ */
+}
+
+/* ==========================
+   見出し
+========================== */
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+/* ==========================
+   フォーム
+========================== */
+
+form {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #374151;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  background-color: #ffffff;
+  color: #111827;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* ==========================
+   テーブル
+========================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+
+tr:hover td {
+  background-color: #f9fafb;
+}
+
+/* ==========================
+   通知
+========================== */
+
+.notice {
+  background-color: #ecfeff;
+  color: #155e75;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.alert {
+  background-color: #fef2f2;
+  color: #991b1b;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+/* ==========================
+   リンク
+========================== */
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================
+   ボタン共通
+========================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn + .btn {
+  margin-left: 8px;
+}
+
+/* プライマリ */
+.btn-primary {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+
+/* セカンダリ */
+.btn-secondary {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db;
+}
+
+/* アウトライン */
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid #9ca3af;
+  color: #374151;
+}
+
+.btn-outline:hover {
+  background-color: #f3f4f6;
+}
+
+/* 危険操作 */
+.btn-danger {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+}
+
+/* ==========================
+   button_to 用
+========================== */
+
+button.btn {
+  background: none;
+  border: none;
+}
+
+/* ==========================
+   プレイリストフォーム
+========================== */
+
+.playlist-form-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* フォームグループ */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* 入力欄 */
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* エラー表示 */
+.form-errors {
+  background-color: #fef2f2;
+  color: #991b1b;
+  padding: 14px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.form-errors p {
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+.form-errors ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+/* ボタンエリア */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* ==========================
+   プレイリスト フォームカード
+========================== */
+
+.playlist-form-card {
+  max-width: 520px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 32px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* タイトル */
+.form-title {
+  font-size: 22px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+/* ==========================
+   フォームグループ
+========================== */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* 入力 */
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* ==========================
+   エラーメッセージ
+========================== */
+
+.form-errors {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.form-errors p {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-errors ul {
+  padding-left: 18px;
+  margin: 0;
+}
+
+/* ==========================
+   フォームアクション
+========================== */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.playlist-name a {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.playlist-desc {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: #f3f4f6;
+  font-size: 13px;
+}
+
+.icon-btn.delete {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
