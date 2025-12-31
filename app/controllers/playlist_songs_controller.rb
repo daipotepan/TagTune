@@ -1,5 +1,13 @@
 class PlaylistSongsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
+
+  def index
+    if user_signed_in?
+      @playlists = current_user.playlists
+    else
+      @playlists = []
+    end
+  end
 
   def create
     playlist = current_user.playlists.find(params[:playlist_id])

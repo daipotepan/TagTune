@@ -1,20 +1,21 @@
 class SongsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_song, only: [:show, :edit, :update, :destroy]
+  before_action :set_playlist, only: [:new, :create]
 
   def index
-    @songs = current_user.songs
+    @playlists = current_user.playlists.includes(:songs)
   end
 
   def show
   end
 
   def new
-    @song = current_user.songs.build
+    @song = @playlist.songs.build
   end
 
   def create
-    @song = current_user.songs.build(song_params)
+    @song = @playlist.songs.build(song_params)
 
     if @song.save
       redirect_to @song, notice: "曲を登録しました"
@@ -42,11 +43,19 @@ class SongsController < ApplicationController
   private
 
   def set_song
-    @song = current_user.songs.find(params[:id])
+    @song = Song.find(params[:id])
+    if @song.playlist.user != current_user
+      redirect_to songs_path, alert: "アクセスできません"
+    end
+  end
+
+  def set_playlist
+    @playlist = current_user.playlists.find(params[:playlist_id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to playlists_path, alert: "プレイリストが見つかりません"
   end
 
   def song_params
-    params.require(:song)
-          .permit(:title, :artist, :spotify_url, tag_ids: [])
+    params.require(:song).permit(:title, :artist, :spotify_url, tag_ids: [])
   end
 end

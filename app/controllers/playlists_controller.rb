@@ -4,10 +4,20 @@ class PlaylistsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @playlists = current_user.playlists
+    if user_signed_in?
+      @playlists = current_user.playlists
+    else
+      @playlists = []
+      flash[:alert] = "ログインしてください"
+      redirect_to new_user_session_path
+    end
   end
 
   def show
+    unless user_signed_in?
+      redirect_to new_user_session_path, alert: "ログインしてください"
+      return
+    end
   end
 
   def new
