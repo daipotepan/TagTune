@@ -1,27 +1,20 @@
-<div class="song-show-card">
-  <h1 class="song-title"><%= @song.title %></h1>
-  <p class="song-artist"><%= @song.artist %></p>
+<div class="song-details">
+  <h1 class="page-title"><%= @song.title %></h1>
 
-  <div class="song-tags">
-    <% @song.tags.each do |tag| %>
-      <span class="tag"><%= tag.name %></span>
+  <p><strong>アーティスト:</strong> <%= @song.artist %></p>
+  <p><strong>Spotify:</strong> <%= link_to "▶ 開く", @song.spotify_url, target: "_blank", rel: "noopener" %></p>
+
+  <p><strong>所属プレイリスト:</strong>
+    <% @song.playlists.each do |playlist| %>
+      <%= link_to playlist.name, playlist_path(playlist), class: "badge" %>
     <% end %>
-  </div>
+  </p>
 
-  <div class="song-actions">
-    <%= link_to "▶ Spotifyで開く",
-        @song.spotify_url,
-        target: "_blank",
-        rel: "noopener",
-        class: "spotify-play-btn" %>
-
-    <%= link_to "編集", edit_song_path(@song), class: "secondary-btn" %>
-    <%= link_to "削除",
-        song_path(@song),
-        data: {
-          turbo_method: :delete,
-          turbo_confirm: "削除しますか？"
-        },
-        class: "danger-btn" %>
+  <div class="action-buttons">
+    <%= link_to "編集", edit_song_path(@song), class: "btn btn-secondary" %>
+    <%= link_to "削除", song_path(@song), method: :delete,
+                data: { confirm: "本当に削除しますか？" },
+                class: "btn btn-danger" %>
+    <%= link_to "曲一覧に戻る", songs_path, class: "btn btn-link" %>
   </div>
 </div>

@@ -1,32 +1,23 @@
 class PlaylistSongsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
-
-  def index
-    if user_signed_in?
-      @playlists = current_user.playlists
-    else
-      @playlists = []
-    end
-  end
+  before_action :authenticate_user!
 
   def create
     playlist = current_user.playlists.find(params[:playlist_id])
-    playlist_song = PlaylistSong.joins(:playlist).where(playlists: { user_id: current_user.id }).find(params[:id])
+    song = Song.find(params[:song_id])
 
+    playlist_song = PlaylistSong.new(playlist: playlist, song: song)
 
     if playlist_song.save
-      flash[:notice] = "曲を追加しました"
+      redirect_to playlist_path(playlist), notice: "曲を追加しました"
     else
-      flash[:alert] = "その曲はすでに追加されています"
+      redirect_to playlist_path(playlist), alert: "その曲はすでに追加されています"
     end
-
-    redirect_to playlist_path(playlist)
   end
 
   def destroy
     playlist_song = PlaylistSong.find(params[:id])
 
-    unless playlist_song.playlist.user == current_user
+    if playlist_song.playlist.user != current_user
       redirect_to playlists_path, alert: "権限がありません"
       return
     end

@@ -1,55 +1,18 @@
-<div class="playlist-index-card">
-  <div class="playlist-index-header">
-    <h1>🎧 プレイリスト</h1>
+<h1 class="page-title">🎶 プレイリスト一覧</h1>
 
-    <%= link_to "＋ 新規作成",
-      new_playlist_path,
-      class: "primary-btn" %>
+<% if user_signed_in? %>
+  <%= link_to "＋ 新規プレイリスト", new_playlist_path, class: "btn btn-primary mb-3" %>
+<% end %>
+
+<% if @playlists.any? %>
+  <div class="playlist-list">
+    <% @playlists.each do |playlist| %>
+      <div class="playlist-card">
+        <h2><%= link_to playlist.name, playlist_path(playlist) %></h2>
+        <p class="description"><%= playlist.description %></p>
+      </div>
+    <% end %>
   </div>
-
-  <% if @playlists.any? %>
-    <table class="playlist-table">
-      <thead>
-        <tr>
-          <th>タイトル</th>
-          <th>説明</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @playlists.each do |playlist| %>
-          <tr>
-            <td class="playlist-name">
-              <%= link_to playlist.name,
-                playlist_path(playlist),
-                class: "playlist-link" %>
-            </td>
-
-            <td class="playlist-desc">
-              <%= playlist.description.presence || "説明はありません" %>
-            </td>
-
-            <td class="actions">
-              <%= link_to "編集",
-                edit_playlist_path(playlist),
-                class: "icon-btn",
-                title: "編集" %>
-
-              <%= link_to "削除",
-                playlist_path(playlist),
-                data: {
-                  turbo_method: :delete,
-                  turbo_confirm: "削除しますか？"
-                },
-                class: "icon-btn delete",
-                title: "削除" %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% else %>
-    <p class="empty-message">まだプレイリストがありません。</p>
-  <% end %>
-</div>
+<% else %>
+  <p>プレイリストがありません</p>
+<% end %>

@@ -1,3 +1,2 @@
-<h1>曲を追加</h1>
-
-<%= render "form", song: @song %>
+<h1 class="page-title">＋ 曲を追加</h1>
+<%= render "form", song: @song, playlists: current_user.playlists %>

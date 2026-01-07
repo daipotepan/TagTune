@@ -1,7 +1,10 @@
-<div class="top">
-  <h1>🎧 TagTune</h1>
-  <p>タグで音楽を管理するプレイリストアプリ</p>
-
-  <%= link_to "ログイン", new_user_session_path %>
-  <%= link_to "新規登録", new_user_registration_path %>
+<div class="home-container">
+  <% unless user_signed_in? %>
+    <h1>🎵 TagTune へようこそ</h1>
+    <p>自分だけのプレイリストを作って、曲を管理しよう！</p>
+    <div class="home-actions">
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary" %>
+      <%= link_to "新規登録", new_user_registration_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
 </div>

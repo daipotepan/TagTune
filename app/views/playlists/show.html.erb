@@ -1,63 +1,36 @@
-<div class="playlist-show-card">
-  <h1 class="playlist-title">🎶 <%= @playlist.name %></h1>
-  <p class="playlist-description"><%= @playlist.description %></p>
+<h1 class="page-title"><%= @playlist.name %></h1>
 
-  <hr class="divider">
+<p class="description"><%= @playlist.description %></p>
 
-  <h2 class="section-title">収録曲</h2>
+<%= link_to "＋ 曲を追加", songs_path, class: "add-song-btn" %>
 
-  <% if @playlist.playlist_songs.any? %>
-    <table class="playlist-table">
+<% if @playlist.songs.any? %>
+  <div class="table-wrapper">
+    <table class="songs-table">
       <thead>
         <tr>
-          <th>#</th>
           <th>タイトル</th>
           <th>アーティスト</th>
-          <th></th>
+          <th>Spotify</th>
+          <th>操作</th>
         </tr>
       </thead>
-
       <tbody>
-        <% @playlist.playlist_songs.each_with_index do |ps, i| %>
+        <% @playlist.songs.each do |song| %>
           <tr>
-            <td class="index"><%= i + 1 %></td>
-            <td><%= ps.song.title %></td>
-            <td class="muted"><%= ps.song.artist %></td>
+            <td><%= song.title %></td>
+            <td><%= song.artist %></td>
             <td>
-              <%= link_to "🗑",
-                playlist_song_path(ps),
-                data: {
-                  turbo_method: :delete,
-                  turbo_confirm: "削除しますか？"
-                },
-                class: "icon-btn delete",
-                title: "削除" %>
+              <%= link_to "▶ 開く", song.spotify_url, target: "_blank", rel: "noopener" %>
+            </td>
+            <td>
+              <%= link_to "🗑", playlist_song_path(song.playlist_songs.find_by(song: song)), method: :delete, data: { confirm: "本当に削除しますか？" } %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
-  <% else %>
-    <p class="empty-message">まだ曲が追加されていません。</p>
-  <% end %>
-
-  <hr class="divider">
-
-  <h2 class="section-title">曲を追加</h2>
-
-  <div class="add-song-box">
-    <%= form_with url: playlist_playlist_songs_path(@playlist), local: true do |f| %>
-      <%= hidden_field_tag :playlist_id, @playlist.id %>
-
-      <%= select_tag :song_id,
-        options_from_collection_for_select(
-          current_user.songs, :id, :title
-        ),
-        class: "song-select" %>
-
-      <%= f.submit "追加", class: "submit-btn" %>
-    <% end %>
   </div>
-
-  <%= link_to "← 一覧へ戻る", playlists_path, class: "back-link" %>
-</div>
+<% else %>
+  <p>まだ曲が追加されていません</p>
+<% end %>
