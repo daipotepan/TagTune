@@ -1,10 +1,31 @@
 <div class="home-container">
   <% unless user_signed_in? %>
-    <h1>🎵 TagTune へようこそ</h1>
-    <p>自分だけのプレイリストを作って、曲を管理しよう！</p>
-    <div class="home-actions">
-      <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary" %>
-      <%= link_to "新規登録", new_user_registration_path, class: "btn btn-secondary" %>
+    <div class="home-card">
+      <h1 class="home-title">🎵 TagTune</h1>
+
+      <p class="home-description">
+        自分だけのプレイリストを作って、<br>
+        曲をタグで整理・管理できる音楽アプリです。
+      </p>
+
+      <div class="home-actions">
+        <%= link_to "ログイン",
+          new_user_session_path,
+          class: "btn btn-primary" %>
+
+        <%= link_to "新規登録",
+          new_user_registration_path,
+          class: "btn btn-secondary" %>
+      </div>
+
+      <div class="guest-login">
+        <p class="guest-text">登録せずに試したい方はこちら</p>
+
+        <%= button_to "🎧 ゲストログイン",
+          users_guest_sign_in_path,
+          method: :post,
+          class: "btn btn-guest" %>
+      </div>
     </div>
   <% end %>
 </div>

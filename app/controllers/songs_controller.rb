@@ -1,12 +1,8 @@
 class SongsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_song, only: [:show, :edit, :update, :destroy]
-
+  
   def index
     @songs = current_user.songs
-  end
-
-  def show
   end
 
   def new
@@ -17,35 +13,28 @@ class SongsController < ApplicationController
     @song = Song.new(song_params)
 
     if @song.save
-      redirect_to @song, notice: "曲を登録しました"
+      # プレイリストが選ばれていたら中間テーブル作成
+      if params[:song][:playlist_id].present?
+        PlaylistSong.create!(
+          playlist_id: params[:song][:playlist_id],
+          song: @song
+        )
+      end
+
+      redirect_to songs_path, notice: "曲を追加しました"
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit
-  end
-
-  def update
-    if @song.update(song_params)
-      redirect_to @song, notice: "曲を更新しました"
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @song.destroy
-    redirect_to songs_path, notice: "曲を削除しました"
   end
 
   private
 
-  def set_song
-    @song = Song.find(params[:id])
-  end
-
   def song_params
-    params.require(:song).permit(:title, :artist, :spotify_url, tag_ids: [])
+    params.require(:song).permit(
+      :title,
+      :artist,
+      :spotify_url,
+      tag_ids: []
+    )
   end
 end

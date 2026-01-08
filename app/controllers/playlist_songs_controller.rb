@@ -1,28 +1,41 @@
 class PlaylistSongsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_playlist
 
-  def create
-    playlist = current_user.playlists.find(params[:playlist_id])
-    song = Song.find(params[:song_id])
-
-    playlist_song = PlaylistSong.new(playlist: playlist, song: song)
-
-    if playlist_song.save
-      redirect_to playlist_path(playlist), notice: "曲を追加しました"
-    else
-      redirect_to playlist_path(playlist), alert: "その曲はすでに追加されています"
-    end
+  def new
+    @song = Song.new
   end
 
-  def destroy
-    playlist_song = PlaylistSong.find(params[:id])
+  def create
+    @song = Song.new(song_params)
 
-    if playlist_song.playlist.user != current_user
-      redirect_to playlists_path, alert: "権限がありません"
-      return
+    ActiveRecord::Base.transaction do
+      @song.save!
+
+      PlaylistSong.create!(
+        playlist: @playlist,
+        song: @song
+      )
     end
 
-    playlist_song.destroy
-    redirect_to playlist_path(playlist_song.playlist), notice: "曲を削除しました"
+    redirect_to @playlist, notice: "曲を追加しました"
+
+  rescue ActiveRecord::RecordInvalid => e
+    flash.now[:alert] = "曲を追加できませんでした"
+    render :new
+  end
+  private
+
+  def set_playlist
+    @playlist = current_user.playlists.find(params[:playlist_id])
+  end
+
+  def song_params
+    params.require(:song).permit(
+      :title,
+      :artist,
+      :spotify_url,
+      tag_ids: []
+    )
   end
 end
