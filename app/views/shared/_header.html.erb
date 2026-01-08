@@ -1,0 +1,26 @@
+<header class="header">
+  <%= link_to (user_signed_in? ? playlists_path : new_user_session_path), class: "logo-link" do %>
+    <%= image_tag "tagtune_logo.PNG", alt: "TagTune", class: "logo" %>
+  <% end %>
+
+  <nav class="header-nav">
+    <% if user_signed_in? %>
+      <%= link_to "プレイリスト", playlists_path, class: "nav-item" %>
+      <%= link_to "曲一覧", songs_path, class: "nav-item" %>
+
+      <% if current_user.guest? %>
+        <span class="nav-guest">ゲストログイン中</span>
+      <% end %>
+
+      <%= button_to "ログアウト",
+        destroy_user_session_path,
+        method: :delete,
+        class: "nav-item logout",
+        form: { data: { turbo: false } } %>
+
+    <% else %>
+      <%= link_to "ログイン", new_user_session_path, class: "nav-item" %>
+      <%= link_to "新規登録", new_user_registration_path, class: "nav-item" %>
+    <% end %>
+  </nav>
+</header>

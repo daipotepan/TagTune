@@ -1,0 +1,560 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", "Arial", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  background-color: #f7f8fa;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #3b82f6;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+.page-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.page-title {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+  height: 42px;
+}
+
+.header-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-item {
+  font-weight: 500;
+  color: #374151;
+}
+
+.nav-item.logout {
+  color: #ef4444;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #6b7280;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #ef4444;
+  color: #fff;
+}
+
+.btn-outline {
+  border: 1px solid #d1d5db;
+  color: #374151;
+  background-color: #fff;
+}
+
+.btn-link {
+  background: none;
+  color: #3b82f6;
+  padding: 0;
+}
+
+.add-playlist-btn {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background-color: #10b981;
+  color: #fff;
+  font-weight: bold;
+}
+
+.form-card,
+.playlist-form-card {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  max-width: 600px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.form-errors,
+.error-messages {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.tag-checkboxes label {
+  margin-right: 12px;
+}
+
+.playlist-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.playlist-card {
+  background-color: #fff;
+  padding: 18px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.playlist-card h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.playlist-card .description {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.song-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.song-card {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+}
+
+.song-card h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.song-card p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ===== 共通レイアウト ===== */
+.main-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* ===== ページタイトル ===== */
+.page-title {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* ===== テーブル ===== */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.songs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.songs-table th,
+.songs-table td {
+  padding: 12px;
+  text-align: left;
+}
+
+.songs-table th {
+  background: #f5f5f5;
+}
+
+/* ===== フォーム ===== */
+.form-card,
+.playlist-form-card {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* ===== ボタン類 ===== */
+.add-song-btn,
+.add-playlist-btn {
+  display: inline-block;
+  margin: 0 auto 24px;
+  padding: 10px 16px;
+  background: #4f46e5;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.add-song-btn {
+  display: block;
+  width: fit-content;
+}
+
+/* ===== プレイリスト一覧 ===== */
+.playlist-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.playlist-card {
+  padding: 16px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   共通レイアウト
+========================= */
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    Arial, sans-serif;
+  background: #f8fafc;
+  color: #111827;
+}
+
+.main-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* =========================
+   ヘッダー
+========================= */
+
+.header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 36px;
+}
+
+.header-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+}
+
+.logout {
+  color: #dc2626;
+}
+
+/* =========================
+   ボタン
+========================= */
+
+.btn,
+.add-playlist-btn,
+.add-song-btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.btn-outline {
+  background: white;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+
+/* =========================
+   カード
+========================= */
+
+.playlist-card,
+.form-card,
+.playlist-form-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================
+   テーブル（PC）
+========================= */
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.songs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.songs-table th,
+.songs-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.songs-table th {
+  text-align: left;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* =========================
+   フォーム
+========================= */
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+}
+
+/* =========================
+   📱 スマホ対応
+========================= */
+
+@media (max-width: 768px) {
+  /* ヘッダー */
+  .header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .header-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  /* ボタンは横幅いっぱい */
+  .btn,
+  .add-playlist-btn,
+  .add-song-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* フォームボタン縦並び */
+  .form-actions {
+    flex-direction: column;
+  }
+
+  /* テーブルをカード表示に変換 */
+  .songs-table,
+  .songs-table thead {
+    display: none;
+  }
+
+  .songs-table tbody,
+  .songs-table tr,
+  .songs-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .songs-table tr {
+    background: white;
+    margin-bottom: 16px;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .songs-table td {
+    border: none;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+
+  .songs-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280;
+    display: block;
+    margin-bottom: 2px;
+  }
+}
+
+/* ---------- 曲カード ---------- */
+.songs-card-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.song-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.song-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.song-artist {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.song-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---------- 空状態 ---------- */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.empty-state img {
+  width: 160px;
+  margin-bottom: 20px;
+}
+
+/* ---------- モーダル ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay.is-active {
+  display: flex;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  width: 90%;
+  max-width: 420px;
+}
+
+/* ---------- レスポンシブ ---------- */
+@media (min-width: 768px) {
+  .songs-card-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.guest-btn {
+  border: 2px dashed #666;
+  margin-top: 10px;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #aaa;
+}

@@ -1,0 +1,47 @@
+<h1 class="page-title"><%= @playlist.name %></h1>
+
+<p class="description"><%= @playlist.description %></p>
+
+<% if @playlist.songs.any? %>
+  <div class="table-wrapper">
+    <table class="songs-table">
+      <thead>
+        <tr>
+          <th>タイトル</th>
+          <th>アーティスト</th>
+          <th>Spotify</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @playlist.songs.each do |song| %>
+          <tr>
+            <td><%= song.title %></td>
+            <td><%= song.artist %></td>
+            <td>
+              <%= link_to "▶ 開く",
+                  song.spotify_url,
+                  target: "_blank",
+                  rel: "noopener" %>
+            </td>
+            <td>
+              <% playlist_song = @playlist.playlist_songs.find_by(song: song) %>
+              <%= link_to "🗑 削除",
+                  playlist_song_path(playlist_song),
+                  data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "本当に削除しますか？"
+                  },
+                  class: "delete-link" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <div class="empty-state">
+    <p>🎵 まだ曲が追加されていません</p>
+    <p>「＋ 曲を追加」から追加してみましょう</p>
+  </div>
+<% end %>

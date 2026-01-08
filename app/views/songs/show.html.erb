@@ -1,0 +1,20 @@
+<div class="song-details">
+  <h1 class="page-title"><%= @song.title %></h1>
+
+  <p><strong>アーティスト:</strong> <%= @song.artist %></p>
+  <p><strong>Spotify:</strong> <%= link_to "▶ 開く", @song.spotify_url, target: "_blank", rel: "noopener" %></p>
+
+  <p><strong>所属プレイリスト:</strong>
+    <% @song.playlists.each do |playlist| %>
+      <%= link_to playlist.name, playlist_path(playlist), class: "badge" %>
+    <% end %>
+  </p>
+
+  <div class="action-buttons">
+    <%= link_to "編集", edit_song_path(@song), class: "btn btn-secondary" %>
+    <%= link_to "削除", song_path(@song), method: :delete,
+                data: { confirm: "本当に削除しますか？" },
+                class: "btn btn-danger" %>
+    <%= link_to "曲一覧に戻る", songs_path, class: "btn btn-link" %>
+  </div>
+</div>

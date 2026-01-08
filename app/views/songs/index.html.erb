@@ -1,0 +1,66 @@
+<div class="page-container">
+  <h1 class="page-title">🎵 曲一覧</h1>
+
+  <%= link_to "＋ 曲を追加", new_song_path, class: "add-song-btn" %>
+
+  <% if @songs.any? %>
+    <div class="table-wrapper">
+      <table class="songs-table">
+        <thead>
+          <tr>
+            <th>タイトル</th>
+            <th>アーティスト</th>
+            <th>Spotify</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @songs.each do |song| %>
+            <tr>
+              <td data-label="タイトル">
+                <%= song.title %>
+              </td>
+
+              <td data-label="アーティスト" class="muted">
+                <%= song.artist %>
+              </td>
+
+              <td data-label="Spotify">
+                <% if song.spotify_url.present? %>
+                  <%= link_to "▶ 開く",
+                    song.spotify_url,
+                    target: "_blank",
+                    rel: "noopener",
+                    class: "spotify-link" %>
+                <% else %>
+                  <span class="muted">未登録</span>
+                <% end %>
+              </td>
+
+              <td data-label="操作" class="actions">
+                <%= link_to edit_song_path(song),
+                  class: "icon-btn edit",
+                  title: "編集" do %>
+                  ✏️
+                <% end %>
+
+                <%= link_to song_path(song),
+                  data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "本当に削除しますか？"
+                  },
+                  class: "icon-btn delete",
+                  title: "削除" do %>
+                  🗑
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="empty-message">まだ曲が登録されていません。</p>
+  <% end %>
+</div>
